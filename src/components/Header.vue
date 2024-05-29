@@ -1,11 +1,18 @@
 <template>
     <header>
         <div class="logo">
-            <img :src="logoImg" />
+            <img :src="logoImg">
         </div>
         <div class="name">
-            <div class="name__text">Кто хочет сдать экзамен?</div>
-            <IconQuestion class="name__icon" width="25" height="25" @click="openModalRules" />
+            <div class="name__text">
+                Кто хочет сдать экзамен?
+            </div>
+            <CarbonHelp
+                class="name__icon"
+                width="25"
+                height="25"
+                @click="openModalRules"
+            />
         </div>
         <div class="balance">
             <Transition name="fade">
@@ -21,41 +28,30 @@
     </header>
 </template>
 
-<script setup>
-    import IconClose from '~icons/mdi/close';
-    import IconQuestion from '~icons/carbon/help';
-    import { modalStore } from '../store/modal';
-    import { mainStore } from '../store/main';
+<script setup lang="ts">
+import { modalStore } from '@/store/modal';
+import { mainStore } from '@/store/main';
 
-    const store = modalStore();
-    const storeMain = mainStore();
+const store = modalStore();
+const storeMain = mainStore();
 
-    const logoImg = new URL(`/src/assets/img/logo.png`, import.meta.url).href;
+const logoImg = new URL('/src/assets/img/logo.png', import.meta.url).href;
 
-    const openModalRules = () => {
-        store.$patch({
-            isShowModalRules: true,
-        });
-    };
-
-    const openModalThematics = () => {
-        store.$patch({
-            isShowModalThematics: true,
-        });
-    };
+const openModalRules = () => store.isShowModalRules = true;
+const openModalThematics = () => store.isShowModalThematics = true;
 </script>
 
 <style lang="scss" scoped>
     header {
         position: relative;
+        z-index: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: $black;
-        border-bottom: 1px solid #e3e7ec;
-        font-size: 20px;
         height: 80px;
-        z-index: 1;
+        border-bottom: 1px solid #e3e7ec;
+        background-color: $black;
+        font-size: 20px;
     }
 
     .logo {
@@ -86,18 +82,18 @@
         height: 100%;
 
         &__btn {
+            position: absolute;
             top: 27px;
             left: -120px;
-            position: absolute;
             font-size: 16px;
             cursor: pointer;
             user-select: none;
 
-            &:after {
+            &::after {
                 content: '';
                 position: absolute;
-                left: 0;
                 bottom: 2px;
+                left: 0;
                 width: 100%;
                 height: 1px;
                 background-color: #fff;

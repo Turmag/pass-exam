@@ -1,13 +1,17 @@
 <template>
     <Transition name="slide-fade">
-        <div class="game" v-if="store.isDisplayGameField">
+        <div v-if="store.isDisplayGameField" class="game">
             <div class="game__title">
-                <div class="game__title-name">Выбранная тематика:</div>
-                <div class="game__title-thematics">{{ currentThematic }}</div>
+                <div class="game__title-name">
+                    Выбранная тематика:
+                </div>
+                <div class="game__title-thematics">
+                    {{ currentThematic }}
+                </div>
             </div>
             <Help />
             <div class="game__main">
-                <img :src="mainImg" />
+                <img :src="mainImg">
             </div>
             <Aside />
             <Answers />
@@ -15,33 +19,29 @@
     </Transition>
 </template>
 
-<script setup>
-    import Help from './Help.vue';
-    import Aside from './Aside.vue';
-    import Answers from './Answers.vue';
-    import { watch, computed } from 'vue';
-    import { mainStore } from '../../store/main';
+<script setup lang="ts">
+import Help from '@/components/game/Help.vue';
+import Aside from '@/components/game/Aside.vue';
+import Answers from '@/components/game/Answers.vue';
+import { watch, computed } from 'vue';
+import { mainStore } from '@/store/main';
 
-    const mainImg = new URL(`/src/assets/img/mainPicture.svg`, import.meta.url).href;
+const mainImg = new URL('/src/assets/img/mainPicture.svg', import.meta.url).href;
 
-    const store = mainStore();
+const store = mainStore();
 
-    watch(
-        () => store.isGameStarted,
-        val => {
-            setTimeout(
-                () =>
-                    store.$patch({
-                        isDisplayGameField: val,
-                    }),
-                700
-            );
-        }
-    );
+watch(
+    () => store.isGameStarted,
+    val => {
+        setTimeout(
+            () =>
+                store.$patch({ isDisplayGameField: val }),
+            700,
+        );
+    },
+);
 
-    const currentThematic = computed(() => {
-        return store.thematics.find(el => el.id === store.chosenThematicId)?.name;
-    });
+const currentThematic = computed(() => store.thematics.find(el => el.id === store.chosenThematicId)?.name);
 </script>
 
 <style lang="scss" scoped>
@@ -85,7 +85,7 @@
 
     .slide-fade-enter-from,
     .slide-fade-leave-to {
-        transform: translateY(100px);
         opacity: 0;
+        transform: translateY(100px);
     }
 </style>

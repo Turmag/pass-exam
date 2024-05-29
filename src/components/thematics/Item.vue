@@ -8,36 +8,28 @@
     </div>
 </template>
 
-<script setup>
-    import { mainStore } from '../../store/main';
-    const props = defineProps({
-        id: {
-            type: String,
-            default: '',
-        },
-        name: {
-            type: String,
-            default: '',
-        },
-    });
+<script setup lang="ts">
+import { mainStore } from '@/store/main';
 
-    const store = mainStore();
+interface Props {
+    id: string;
+    name: string;
+}
 
-    const chooseThematics = () => {
-        store.$patch({
-            chosenThematicId: props.id,
-        });
-    };
+const props = defineProps<Props>();
+const store = mainStore();
+
+const chooseThematics = () => store.chosenThematicId = props.id;
 </script>
 
 <style lang="scss" scoped>
     .item {
         padding: 10px 15px;
-        background: rgba(255, 255, 255, 0.2);
         border-radius: 15px;
+        background: rgb(255 255 255 / 20%);
+        transition: 0.3s ease;
         cursor: pointer;
         user-select: none;
-        transition: 0.3s ease;
 
         &:hover {
             background-color: #f1dc65;

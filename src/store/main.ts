@@ -1,23 +1,25 @@
 import { defineStore } from 'pinia';
-import { getRandom } from '../helpers/functions';
+import { getRandom } from '@/assets/js/helpers';
+import { Thematic, Question } from '@/services/types';
+import Api from '@/services/api';
 
 export const mainStore = defineStore('main', {
     state: () => {
         return {
-            audio: {},
-            thematics: [],
-            chosenThematicId: 0,
+            audio: {} as HTMLAudioElement,
+            thematics: [] as Thematic[],
+            chosenThematicId: '0',
             isMuted: true,
             currentQuestionNum: 1,
-            currentQuestion: {},
+            currentQuestion: {} as Question,
             isGameStarted: false,
             isGameEnded: false,
             isDisplayGameField: false,
             isAnswerAcepted: false,
             chosenAnswer: 0,
-            lowQuestions: [],
-            middleQuestions: [],
-            highQuestions: [],
+            lowQuestions: [] as Question[],
+            middleQuestions: [] as Question[],
+            highQuestions: [] as Question[],
             isFiftyUsed: false,
             helpFiftyFiftyNumbers: [],
             isTryUsed: false,
@@ -25,33 +27,53 @@ export const mainStore = defineStore('main', {
             helpTryNumber: 0,
         };
     },
-    getters: {
-        chosenThematic: state => state.thematics.find(el => el.id === state.chosenThematicId),
-    },
+    getters: { chosenThematic: state => state.thematics.find(el => el.id === state.chosenThematicId) },
     actions: {
-        toggleMute() {
-            this.isMuted = !this.isMuted;
-            if (!this.audio.ended) {
-                this.isMuted ? this.audio.pause() : this.audio.play();
+        async getThematics() {
+            try {
+                const { data: thematics } = await Api.getThematics();
+                this.thematics = thematics;
+            } catch(error) {
+                console.error('error', error);
             }
         },
-        addQuestionToThematic({ id, questions }) {
+
+        async getThematicQuestions(id: string) {
+            try {
+                const { data: questions } = await Api.getThematicQuestions(id);
+                this.addQuestionToThematic({
+                    id,
+                    questions, 
+                });
+            } catch(error) {
+                console.error('error', error);
+            }
+        },
+
+        async toggleMute() {
+            this.isMuted = !this.isMuted;
+            if (!this.audio.ended) {
+                this.isMuted ? this.audio.pause() : await this.audio.play();
+            }
+        },
+
+        addQuestionToThematic({ id, questions }: { id: string; questions: string }) {
             this.thematics.forEach((el, i) => {
-                if (el.id === id) {
-                    this.thematics[i].questions = questions;
-                }
+                if (el.id === id) this.thematics[i].questions = questions;
             });
         },
-        resetGame() {
+
+        async resetGame() {
             this.currentQuestionNum = 1;
             this.isFiftyUsed = false;
             this.isTryUsed = false;
             this.isGameEnded = false;
             this.audio.src = 'audio/questionMusicLowQuestions.mp3';
             if (!this.isMuted) {
-                this.audio.play();
+                await this.audio.play();
             }
         },
+
         resetQuestion() {
             this.helpFiftyFiftyNumbers = [];
             this.isHelpTryActive = false;
@@ -59,7 +81,8 @@ export const mainStore = defineStore('main', {
             this.isAnswerAcepted = false;
             this.chosenAnswer = 0;
         },
-        setQuestions(questions) {
+
+        setQuestions(questions: Question[]) {
             this.lowQuestions = [];
             this.middleQuestions = [];
             this.highQuestions = [];
@@ -80,6 +103,7 @@ export const mainStore = defineStore('main', {
                 }
             });
         },
+
         setQuestion() {
             this.resetQuestion();
             let questions = this.lowQuestions;

@@ -5,60 +5,61 @@
         content-class="modal__content"
     >
         <div class="modal__close" @click="closeModal">
-            <IconClose color="#fff" width="20" height="20" />
+            <MdiClose color="#fff" width="20" height="20" />
         </div>
         <div class="modal__content-inner">
-            <div class="modal__content-text">Вы действительно хотите вернуться к тематикам?</div>
+            <div class="modal__content-text">
+                Вы действительно хотите вернуться к тематикам?
+            </div>
             <div class="modal__content-btns">
-                <div class="modal__content-btn" @click="thematicsReturn">Да</div>
-                <div class="modal__content-btn" @click="closeModal">Нет</div>
+                <div class="modal__content-btn" @click="thematicsReturn">
+                    Да
+                </div>
+                <div class="modal__content-btn" @click="closeModal">
+                    Нет
+                </div>
             </div>
         </div>
     </vue-final-modal>
 </template>
 
-<script setup>
-    import IconClose from '~icons/mdi/close';
-    import { modalStore } from '../../store/modal';
-    import { mainStore } from '../../store/main';
+<script setup lang="ts">
+import { modalStore } from '@/store/modal';
+import { mainStore } from '@/store/main';
 
-    const store = modalStore();
-    const storeMain = mainStore();
+const store = modalStore();
+const storeMain = mainStore();
 
-    const closeModal = () => {
-        store.$patch({
-            isShowModalThematics: false,
-        });
-    };
+const closeModal = () => {
+    store.isShowModalThematics = false;
+};
 
-    const thematicsReturn = () => {
+const thematicsReturn = () => {
+    storeMain.isDisplayGameField = false;
+
+    setTimeout(() => {
         storeMain.$patch({
-            isDisplayGameField: false,
+            isGameStarted: false,
+            chosenThematicId: 0,
         });
-
-        setTimeout(() => {
-            storeMain.$patch({
-                isGameStarted: false,
-                chosenThematicId: 0,
-            });
-        }, 800);
-        closeModal();
-    };
+    }, 800);
+    closeModal();
+};
 </script>
 
 <style lang="scss" scoped>
     .modal {
         &__close {
             position: absolute;
-            right: 16px;
             top: 16px;
+            right: 16px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             width: 30px;
             height: 30px;
-            background-color: $gray-modal-inner;
             border-radius: 50%;
+            background-color: $gray-modal-inner;
             cursor: pointer;
             user-select: none;
 
@@ -72,16 +73,16 @@
         }
 
         &__title {
+            text-align: center;
             font-size: 25px;
             font-weight: bold;
-            text-align: center;
         }
 
         &__content-inner {
+            overflow: auto;
             height: 100%;
             max-height: 670px;
             padding-right: 16px;
-            overflow: auto;
 
             &::-webkit-scrollbar {
                 width: 8px;
@@ -90,7 +91,7 @@
 
             &::-webkit-scrollbar-thumb {
                 border-radius: 8px;
-                background: #ffffff;
+                background: #fff;
             }
 
             &::-webkit-scrollbar-track {
@@ -112,18 +113,18 @@
 
         &__content-btn {
             padding: 10px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 15px;
+            background-color: rgb(255 255 255 / 20%);
             transition: 0.3s ease;
             cursor: pointer;
             user-select: none;
 
             &:hover {
-                background-color: rgba(255, 255, 255, 0.4);
+                background-color: rgb(255 255 255 / 40%);
             }
 
             &:active {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgb(255 255 255 / 10%);
             }
         }
     }
