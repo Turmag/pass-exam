@@ -11,7 +11,6 @@ declare module 'vue' {
     Aside: typeof import('./src/components/game/Aside.vue')['default']
     AsideItem: typeof import('./src/components/game/AsideItem.vue')['default']
     CarbonHelp: typeof import('~icons/carbon/help')['default']
-    CarbonQuestion: typeof import('~icons/carbon/question')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     GameEnds: typeof import('./src/components/modal/GameEnds.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
