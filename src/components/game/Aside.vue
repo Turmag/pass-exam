@@ -1,5 +1,5 @@
 <template>
-    <div class="aside">
+    <div :class="$style.aside">
         <Item v-for="(item, i) in asideConfig" :key="i" v-bind="item" />
     </div>
 </template>
@@ -76,7 +76,7 @@ let asideConfig = [
 asideConfig = asideConfig.reverse();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .aside {
         display: flex;
         flex-direction: column;

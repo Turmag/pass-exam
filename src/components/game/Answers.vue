@@ -1,59 +1,59 @@
 <template>
-    <div class="answers">
-        <div class="answers__question">
-            <div class="answers__question-block">
+    <div :class="$style.answers">
+        <div :class="$style.answersQuestion">
+            <div :class="$style.answersQuestionBlock">
                 {{ store.currentQuestion.question }}
             </div>
         </div>
-        <div class="answer-wrapper">
-            <div class="answer__decor" />
-            <div class="answer__inner">
-                <div class="answer" :class="answer1Class" @click="chooseAnswer(1)">
-                    <div class="answer__dot" />
+        <div :class="$style.answerWrapper">
+            <div :class="$style.answerDecor" />
+            <div :class="$style.answerInner">
+                <div :class="[$style.answer, answer1Class]" @click="chooseAnswer(1)">
+                    <div :class="$style.answerDot" />
                     A:
-                    <div class="answer__value">
+                    <div :class="$style.answerValue">
                         {{ answer1 }}
                     </div>
                 </div>
             </div>
-            <div class="answer__inner answer__inner--second">
-                <div class="answer" :class="answer2Class" @click="chooseAnswer(2)">
-                    <div class="answer__dot" />
+            <div :class="[$style.answerInner, $style.answerInnerSecond]">
+                <div :class="[$style.answer, answer2Class]" @click="chooseAnswer(2)">
+                    <div :class="$style.answerDot" />
                     B:
-                    <div class="answer__value">
+                    <div :class="$style.answerValue">
                         {{ answer2 }}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="answer-wrapper">
-            <div class="answer__decor" />
-            <div class="answer__inner">
-                <div class="answer" :class="answer3Class" @click="chooseAnswer(3)">
-                    <div class="answer__dot" />
+        <div :class="$style.answerWrapper">
+            <div :class="$style.answerDecor" />
+            <div :class="$style.answerInner">
+                <div :class="[$style.answer, answer3Class]" @click="chooseAnswer(3)">
+                    <div :class="$style.answerDot" />
                     C:
-                    <div class="answer__value">
+                    <div :class="$style.answerValue">
                         {{ answer3 }}
                     </div>
                 </div>
             </div>
-            <div class="answer__inner answer__inner--second">
-                <div class="answer" :class="answer4Class" @click="chooseAnswer(4)">
-                    <div class="answer__dot" />
+            <div :class="[$style.answerInner, $style.answerInnerSecond]">
+                <div :class="[$style.answer, answer4Class]" @click="chooseAnswer(4)">
+                    <div :class="$style.answerDot" />
                     D:
-                    <div class="answer__value">
+                    <div :class="$style.answerValue">
                         {{ answer4 }}
                     </div>
                 </div>
             </div>
         </div>
         <Transition name="fade">
-            <div v-if="store.isHelpTryActive" class="try-wrapper">
-                <div class="try">
-                    <div class="try__name">
+            <div v-if="store.isHelpTryActive" :class="$style.tryWrapper">
+                <div :class="$style.try">
+                    <div :class="$style.tryName">
                         x
                     </div>
-                    <div class="try__value">
+                    <div :class="$style.tryValue">
                         2
                     </div>
                 </div>
@@ -63,12 +63,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue-demi';
+import {
+    ref, computed, useCssModule, 
+} from 'vue';
 import { mainStore } from '@/store/main';
 import { modalStore } from '@/store/modal';
 
 const store = mainStore();
 const storeModal = modalStore();
+const $style = useCssModule();
+
 const rightAnswer = ref(0);
 
 const answer1 = computed(() => {
@@ -100,10 +104,9 @@ const answer4 = computed(() => {
 const answer4Class = computed(() => getAnswerClass(4));
 
 const getAnswerClass = numb => ({
-    'answer--chosen': store.chosenAnswer === numb,
-    'answer--right': rightAnswer.value === numb,
-    'answer--disabled':
-        store.chosenAnswer > 0 ||
+    [$style.answerChosen]: store.chosenAnswer === numb,
+    [$style.answerRight]: rightAnswer.value === numb,
+    [$style.answerDisabled]: store.chosenAnswer > 0 ||
         store.helpFiftyFiftyNumbers.includes(numb) ||
         store.helpTryNumber === numb ||
         store.isGameEnded,
@@ -205,7 +208,7 @@ const showGameEndsModal = ({ isGameEnded = false }) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .answers {
         position: relative;
         display: flex;
@@ -213,29 +216,41 @@ const showGameEndsModal = ({ isGameEnded = false }) => {
         flex-wrap: wrap;
         width: calc(100% - 270px);
 
-        &__question {
-            display: flex;
-            justify-content: center;
-            width: 1000px;
-            height: 84px;
-            background-image: url("@/assets/img/gameComplect.png");
-            text-align: center;
-            font-size: 18px;
-            color: #fff;
-            background-position-y: -462px;
-        }
+        & :global {
+            .fade-enter-active,
+            .fade-leave-active {
+                transition: opacity 0.5s ease;
+            }
 
-        &__question-block {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 600px;
-            height: 100%;
-            text-align: center;
+            .fade-enter-from,
+            .fade-leave-to {
+                opacity: 0;
+            }
         }
     }
 
-    .answer-wrapper {
+    .answersQuestion {
+        display: flex;
+        justify-content: center;
+        width: 1000px;
+        height: 84px;
+        background-image: url("@/assets/img/gameComplect.png");
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        background-position-y: -462px;
+    }
+
+    .answersQuestionBlock {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 600px;
+        height: 100%;
+        text-align: center;
+    }
+
+    .answerWrapper {
         position: relative;
         display: flex;
         width: 1000px;
@@ -255,62 +270,62 @@ const showGameEndsModal = ({ isGameEnded = false }) => {
         gap: 8px;
         user-select: none;
 
-        &:hover:not(.answer--disabled),
-        &--chosen {
+        &:hover:not(.answerDisabled),
+        &.answerChosen {
             background-position-y: -41px;
             color: #000;
         }
 
-        &--right {
+        &.answerRight {
             background-position-y: -80px;
             color: #000;
         }
 
-        &--disabled {
+        &.answerDisabled {
             cursor: default;
-        }
-
-        &__decor {
-            position: absolute;
-            width: 1000px;
-            height: 10px;
-            margin-top: 26px;
-            background-image: url("@/assets/img/gameComplect.png");
-            background-position-y: -451px;
-        }
-
-        &__inner {
-            position: relative;
-            margin: 12px 0 0 145px;
-            font-size: 18px;
-            color: #fff;
-
-            &--second {
-                margin-left: 40px;
-            }
-        }
-
-        &__dot {
-            position: absolute;
-            top: 17px;
-            left: 22px;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: #e1a02e;
-        }
-
-        &:hover:not(.answer--disabled) &__dot,
-        &--chosen &__dot {
-            background-color: #fff;
-        }
-
-        &__value {
-            font-size: 15px;
         }
     }
 
-    .try-wrapper {
+    .answerDecor {
+        position: absolute;
+        width: 1000px;
+        height: 10px;
+        margin-top: 26px;
+        background-image: url("@/assets/img/gameComplect.png");
+        background-position-y: -451px;
+    }
+
+    .answerInner {
+        position: relative;
+        margin: 12px 0 0 145px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    .answerInnerSecond {
+        margin-left: 40px;
+    }
+
+    .answerDot {
+        position: absolute;
+        top: 17px;
+        left: 22px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #e1a02e;
+
+        .answer:hover:not(.answerDisabled) &,
+        .answerChosen & {
+            background-color: #fff;
+        }
+    }
+
+    .answerValue {
+        font-size: 15px;
+    }
+
+    .tryWrapper {
         position: relative;
         left: 0;
         width: 0;
@@ -334,23 +349,13 @@ const showGameEndsModal = ({ isGameEnded = false }) => {
         cursor: default;
         gap: 8px;
         user-select: none;
-
-        &__name {
-            position: relative;
-        }
-
-        &__value {
-            font-size: 24pt;
-        }
     }
 
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity 0.5s ease;
+    .tryName {
+        position: relative;
     }
 
-    .fade-enter-from,
-    .fade-leave-to {
-        opacity: 0;
+    .tryValue {
+        font-size: 24pt;
     }
 </style>

@@ -1,43 +1,37 @@
 <template>
-    <div class="item" :class="itemClass">
-        <div class="item__num">
+    <div :class="itemClass">
+        <div :class="$style.itemNum">
             {{ num }}
         </div>
-        <div class="item__name">
+        <div :class="$style.itemName">
             {{ name }}
         </div>
     </div>
 </template>
 
-<script setup>
-import { computed } from 'vue';
+<script setup lang="ts">
+import { computed, useCssModule } from 'vue';
 import { mainStore } from '@/store/main';
 
-const props = defineProps({
-    num: {
-        type: Number,
-        default: 0,
-    },
-    name: {
-        type: String,
-        default: '',
-    },
-    isFireproof: {
-        type: Boolean,
-        default: false,
-    },
-});
+interface Props {
+    num: number;
+    name: string;
+    isFireproof: boolean;
+}
 
+const props = defineProps<Props>();
 const store = mainStore();
+const $style = useCssModule();
 
 const itemClass = computed(() => ({
-    'item--fireproof': props.isFireproof,
-    'item--current': store.currentQuestionNum === props.num,
-    'item--decided': store.currentQuestionNum > props.num,
+    [$style.item]: true,
+    [$style.itemFireproof]: props.isFireproof,
+    [$style.itemCurrent]: store.currentQuestionNum === props.num,
+    [$style.itemDecided]: store.currentQuestionNum > props.num,
 }));
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .item {
         display: flex;
         gap: 8px;
@@ -46,26 +40,26 @@ const itemClass = computed(() => ({
         font-size: 16px;
         line-height: 19px;
         color: rgb(225 160 46);
+    }
 
-        &--fireproof {
-            color: #fff;
-            font-weight: bold;
-        }
+    .itemCurrent {
+        background-image: url("@/assets/img/gameComplect.png");
+        background-position: -637px -119px;
+        color: black;
+    }
 
-        &--current {
-            background-image: url("../../assets/img/gameComplect.png");
-            background-position: -637px -119px;
-            color: black;
-        }
+    .itemDecided {
+        background-image: url("@/assets/img/gameComplect.png");
+        background-position: -648px -146px;
+    }
 
-        &--decided {
-            background-image: url("../../assets/img/gameComplect.png");
-            background-position: -648px -146px;
-        }
+    .itemFireproof {
+        color: #fff;
+        font-weight: bold;
+    }
 
-        &__num {
-            width: 40px;
-            text-align: right;
-        }
+    .itemNum {
+        width: 40px;
+        text-align: right;
     }
 </style>

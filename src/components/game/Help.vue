@@ -1,31 +1,36 @@
 <template>
-    <div class="help">
-        <div class="help__inner">
+    <div :class="$style.help">
+        <div :class="$style.inner">
             <div
-                class="help__item help__item--fifty"
-                :class="fiftyClass"
+                :class="[$style.item, $style.itemFifty, fiftyClass]"
                 @click="setFiftyHelp"
             />
-            <div class="help__item help__item--try" :class="tryClass" @click="setTryHelp" />
+            <div
+                :class="[$style.item, $style.itemTry, tryClass]"
+                @click="setTryHelp"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
 import { getRandom } from '@/assets/js/helpers';
-import { computed } from 'vue';
+import { computed, useCssModule } from 'vue';
 import { mainStore } from '@/store/main';
 
 const store = mainStore();
+const $style = useCssModule();
 
 const fiftyClass = computed(() => ({
-    'help__item--used': store.isFiftyUsed,
-    'help__item--disabled': store.isAnswerAcepted || store.isGameEnded,
+    [$style.item]: true,
+    [$style.itemUsed]: store.isFiftyUsed,
+    [$style.itemDisabled]: store.isAnswerAcepted || store.isGameEnded,
 }));
 
 const tryClass = computed(() => ({
-    'help__item--used': store.isTryUsed,
-    'help__item--disabled': store.isAnswerAcepted || store.isGameEnded,
+    [$style.item]: true,
+    [$style.itemUsed]: store.isTryUsed,
+    [$style.itemDisabled]: store.isAnswerAcepted || store.isGameEnded,
 }));
 
 const setFiftyHelp = () => {
@@ -83,55 +88,58 @@ const continueBackgroundMusic = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .help {
         display: flex;
         width: 100%;
         margin-bottom: 20px;
+    }
 
-        &__inner {
-            display: flex;
-            justify-content: center;
-            width: calc(100% - 270px);
-        }
+    .inner {
+        display: flex;
+        justify-content: center;
+        width: calc(100% - 270px);
+    }
 
-        &__item {
-            width: 80px;
-            height: 60px;
-            background-image: url("../../assets/img/gameComplect.png");
-            background-repeat: no-repeat;
-            cursor: pointer;
-            background-position-x: -450px;
-            user-select: none;
+    .item {
+        width: 80px;
+        height: 60px;
+        background-image: url("@/assets/img/gameComplect.png");
+        background-repeat: no-repeat;
+        cursor: pointer;
+        user-select: none;
+    }
 
-            &--hall {
-                background-position-y: 1px;
-            }
+    .itemHall {
+        background-position-x: -450px;
+        background-position-y: 1px;
+    }
 
-            &--fifty {
-                background-position-y: -59px;
-            }
+    .itemFifty {
+        background-position-x: -450px;
+        background-position-y: -59px;
+    }
 
-            &--call {
-                background-position-y: -119px;
-            }
+    .itemCall {
+        background-position-x: -450px;
+        background-position-y: -119px;
+    }
 
-            &--try {
-                background-position-y: -178px;
-            }
+    .itemTry {
+        background-position-x: -450px;
+        background-position-y: -178px;
+    }
 
-            &--used {
-                opacity: 0.5;
-                cursor: default;
-            }
+    .itemUsed {
+        opacity: 0.5;
+        cursor: default;
+    }
 
-            &--disabled {
-                cursor: default;
-            }
+    .itemDisabled {
+        cursor: default;
+    }
 
-            &:hover:not(.help__item--used, .help__item--disabled) {
-                background-position-x: -530px;
-            }
-        }
+    .item:hover:not(.itemUsed, .itemDisabled) {
+        background-position-x: -530px;
     }
 </style>

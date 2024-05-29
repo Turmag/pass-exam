@@ -1,21 +1,21 @@
 <template>
     <vue-final-modal
         v-model="store.isShowModalThematics"
-        classes="modal"
-        content-class="modal__content"
+        :classes="$style.modal"
+        :content-class="$style.content"
     >
-        <div class="modal__close" @click="closeModal">
+        <div :class="$style.close" @click="closeModal">
             <MdiClose color="#fff" width="20" height="20" />
         </div>
-        <div class="modal__content-inner">
-            <div class="modal__content-text">
+        <div :class="$style.inner">
+            <div :class="$style.text">
                 Вы действительно хотите вернуться к тематикам?
             </div>
-            <div class="modal__content-btns">
-                <div class="modal__content-btn" @click="thematicsReturn">
+            <div :class="$style.btns">
+                <div :class="$style.btn" @click="thematicsReturn">
                     Да
                 </div>
-                <div class="modal__content-btn" @click="closeModal">
+                <div :class="$style.btn" @click="closeModal">
                     Нет
                 </div>
             </div>
@@ -47,85 +47,96 @@ const thematicsReturn = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .modal {
-        &__close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: $gray-modal-inner;
-            cursor: pointer;
-            user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-            &:hover {
-                background-color: $gray-modal-inner-lighten;
-            }
+    .content {
+        position: relative;
+        overflow: hidden;
+        width: 550px;
+        min-height: 100px;
+        max-height: 680px;
+        padding: 60px 16px 16px;
+        border-radius: 20px;
+        background-color: $gray-modal;
+        color: $white;
+        box-shadow: 0 4px 32px rgb(0 0 0 / 10%);
+    }
 
-            &:active {
-                background-color: $gray-modal-inner-darken;
-            }
+    .close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: $gray-modal-inner;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: $gray-modal-inner-lighten;
         }
 
-        &__title {
-            text-align: center;
-            font-size: 25px;
-            font-weight: bold;
+        &:active {
+            background-color: $gray-modal-inner-darken;
+        }
+    }
+
+    .inner {
+        overflow: auto;
+        height: 100%;
+        max-height: 670px;
+        padding-right: 16px;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        &__content-inner {
-            overflow: auto;
-            height: 100%;
-            max-height: 670px;
-            padding-right: 16px;
-
-            &::-webkit-scrollbar {
-                width: 8px;
-                height: 8px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                border-radius: 8px;
-                background: #fff;
-            }
-
-            &::-webkit-scrollbar-track {
-                border-radius: 8px;
-                background: $gray-modal-inner;
-            }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            background: #fff;
         }
 
-        &__content-text {
-            text-align: center;
+        &::-webkit-scrollbar-track {
+            border-radius: 8px;
+            background: $gray-modal-inner;
+        }
+    }
+
+    .text {
+        text-align: center;
+    }
+
+    .btns {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border-radius: 15px;
+        background-color: rgb(255 255 255 / 20%);
+        transition: 0.3s ease;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: rgb(255 255 255 / 40%);
         }
 
-        &__content-btns {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        &__content-btn {
-            padding: 10px 15px;
-            border-radius: 15px;
-            background-color: rgb(255 255 255 / 20%);
-            transition: 0.3s ease;
-            cursor: pointer;
-            user-select: none;
-
-            &:hover {
-                background-color: rgb(255 255 255 / 40%);
-            }
-
-            &:active {
-                background-color: rgb(255 255 255 / 10%);
-            }
+        &:active {
+            background-color: rgb(255 255 255 / 10%);
         }
     }
 </style>

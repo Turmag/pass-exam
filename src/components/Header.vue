@@ -1,26 +1,20 @@
 <template>
-    <header>
-        <div class="logo">
+    <header :class="$style.header">
+        <div :class="$style.logo">
             <img :src="logoImg">
         </div>
-        <div class="name">
-            <div class="name__text">
-                Кто хочет сдать экзамен?
-            </div>
+        <div :class="$style.name">
+            Кто хочет сдать экзамен?
             <CarbonHelp
-                class="name__icon"
+                :class="$style.icon"
                 width="25"
                 height="25"
                 @click="openModalRules"
             />
         </div>
-        <div class="balance">
+        <div :class="$style.balance">
             <Transition name="fade">
-                <div
-                    v-if="storeMain.isDisplayGameField"
-                    class="balance__btn"
-                    @click="openModalThematics"
-                >
+                <div v-if="storeMain.isDisplayGameField" :class="$style.btn" @click="openModalThematics">
                     Вернуться к тематикам
                 </div>
             </Transition>
@@ -41,8 +35,8 @@ const openModalRules = () => store.isShowModalRules = true;
 const openModalThematics = () => store.isShowModalThematics = true;
 </script>
 
-<style lang="scss" scoped>
-    header {
+<style lang="scss" module>
+    .header {
         position: relative;
         z-index: 1;
         display: flex;
@@ -69,35 +63,35 @@ const openModalThematics = () => store.isShowModalThematics = true;
     .name {
         display: flex;
         gap: 8px;
+    }
 
-        &__icon {
-            cursor: pointer;
-            user-select: none;
-        }
+    .icon {
+        cursor: pointer;
+        user-select: none;
     }
 
     .balance {
         position: relative;
         width: 80px;
         height: 100%;
+    }
 
-        &__btn {
+    .btn {
+        position: absolute;
+        top: 27px;
+        left: -120px;
+        font-size: 16px;
+        cursor: pointer;
+        user-select: none;
+
+        &::after {
+            content: '';
             position: absolute;
-            top: 27px;
-            left: -120px;
-            font-size: 16px;
-            cursor: pointer;
-            user-select: none;
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 2px;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background-color: #fff;
-            }
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #fff;
         }
     }
 

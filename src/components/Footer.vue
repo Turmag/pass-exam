@@ -1,10 +1,10 @@
 <template>
     <footer :class="footerClass">
-        <div class="info">
+        <div :class="$style.info">
             Играем!
         </div>
         <div
-            class="mute"
+            :class="$style.mute"
             :title="store.isMuted ? 'Включить фоновую музыку' : 'Отключить фоновую музыку'"
             @click="store.toggleMute"
         >
@@ -22,15 +22,26 @@
 import VolumeUp from '~icons/carbon/VolumeUp';
 import VolumeMute from '~icons/carbon/VolumeMuteFilled';
 import {
-    ref, markRaw, watch, computed, 
+    ref,
+    markRaw,
+    watch,
+    computed, 
+    useCssModule,
 } from 'vue';
 import { mainStore } from '@/store/main';
+
 const store = mainStore();
+const $style = useCssModule();
 
 const volume = ref(null);
 volume.value = markRaw(VolumeMute);
 
 let audioInterval: ReturnType<typeof setTimeout>;
+
+const footerClass = computed(() => ({
+    [$style.footer]: true,
+    [$style.footerFixed]: isFixedFooter.value, 
+}));
 
 watch(
     () => store.isMuted,
@@ -73,16 +84,14 @@ const isFixedFooter = ref(true);
 
 watch(
     () => store.isDisplayGameField,
-    val => {
-        setTimeout(() => (isFixedFooter.value = !val), 200);
+    value => {
+        setTimeout(() => isFixedFooter.value = !value, 200);
     },
 );
-
-const footerClass = computed(() => ({ 'footer--fixed': isFixedFooter.value }));
 </script>
 
-<style lang="scss" scoped>
-    footer {
+<style lang="scss" module>
+    .footer {
         position: relative;
         bottom: 0;
         display: flex;
@@ -94,10 +103,10 @@ const footerClass = computed(() => ({ 'footer--fixed': isFixedFooter.value }));
         border-top: 1px solid #e3e7ec;
         background-color: $black;
         transition: 0.3s ease;
+    }
 
-        &.footer--fixed {
-            position: fixed;
-        }
+    .footerFixed {
+        position: fixed;
     }
 
     .info {

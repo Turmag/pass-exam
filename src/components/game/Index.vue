@@ -1,16 +1,16 @@
 <template>
     <Transition name="slide-fade">
-        <div v-if="store.isDisplayGameField" class="game">
-            <div class="game__title">
-                <div class="game__title-name">
+        <div v-if="store.isDisplayGameField" :class="$style.game">
+            <div :class="$style.title">
+                <div :class="$style.titleName">
                     Выбранная тематика:
                 </div>
-                <div class="game__title-thematics">
+                <div :class="$style.titleThematics">
                     {{ currentThematic }}
                 </div>
             </div>
             <Help />
-            <div class="game__main">
+            <div :class="$style.main">
                 <img :src="mainImg">
             </div>
             <Aside />
@@ -44,37 +44,39 @@ watch(
 const currentThematic = computed(() => store.thematics.find(el => el.id === store.chosenThematicId)?.name);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .game {
         display: flex;
         flex-wrap: wrap;
         min-height: calc(100vh - 90px);
         padding: 20px 8px 0;
-
-        &__title {
-            display: flex;
-            gap: 8px;
-            font-size: 18px;
-        }
-
-        &__title-thematics {
-            font-weight: 700;
-        }
-
-        &__main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: calc(100% - 270px);
-            height: 490px;
-
-            & img {
-                width: 472px;
-                height: 472px;
-            }
-        }
     }
 
+    .title {
+        display: flex;
+        gap: 8px;
+        font-size: 18px;
+    }
+
+    .titleThematics {
+        font-weight: 700;
+    }
+
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 270px);
+        height: 490px;
+
+        & img {
+            width: 472px;
+            height: 472px;
+        }
+    }
+</style>
+
+<style lang="scss" scoped>
     .slide-fade-enter-active {
         transition: all 0.3s ease-out;
     }

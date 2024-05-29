@@ -1,7 +1,6 @@
 <template>
     <div
-        class="item"
-        :class="store.chosenThematicId === props.id ? 'item--active' : ''"
+        :class="[$style.item, { [$style.itemActive]: store.chosenThematicId === props.id }]"
         @click="chooseThematics"
     >
         {{ name }}
@@ -22,7 +21,7 @@ const store = mainStore();
 const chooseThematics = () => store.chosenThematicId = props.id;
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .item {
         padding: 10px 15px;
         border-radius: 15px;
@@ -36,10 +35,14 @@ const chooseThematics = () => store.chosenThematicId = props.id;
             color: #181818;
         }
 
-        &--active,
         &:active {
             background-color: #fcde35;
             color: #181818;
         }
+    }
+
+    .itemActive {
+        background-color: #fcde35;
+        color: #181818;
     }
 </style>
