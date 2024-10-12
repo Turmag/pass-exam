@@ -8,16 +8,17 @@
         "build": "vite build",
         "preview": "vite preview",
         "deploy": "scp -r dist/* u2250830@37.140.192.227:./www/focusinfo.ru/pass-exam",
+        "dapi": "scp -r api/* u2250830@37.140.192.227:./www/focusinfo.ru/pass-exam/api",
         "bd": "yarn build && yarn deploy"
     },
     "dependencies": {
         "@iconify/json": "^2.1.148",
         "axios": "^1.7.2",
         "pinia": "^2.0.27",
-        "sass": "^1.56.1",
+        "sass": "^1.79.5",
         "unplugin-icons": "^0.14.14",
         "unplugin-vue-components": "^0.27.0",
-        "vue": "^3.4.27",
+        "vue": "^3.5.12",
         "vue-final-modal": "3"
     },
     "devDependencies": {
@@ -25,7 +26,7 @@
         "@types/node": "^20.11.24",
         "@typescript-eslint/eslint-plugin": "^7.3.1",
         "@typescript-eslint/parser": "^7.3.1",
-        "@vitejs/plugin-vue": "^3.2.0",
+        "@vitejs/plugin-vue": "^5.1.4",
         "@vue/eslint-config-typescript": "^13.0.0",
         "eslint": "^8.57.0",
         "eslint-plugin-jsonc": "^2.14.1",
@@ -40,6 +41,6 @@
         "stylelint-scss": "^5.3.2",
         "stylelint-stylistic": "^0.4.5",
         "typescript": "^4.6.4",
-        "vite": "^3.2.3"
+        "vite": "^5.4.8"
     }
 }

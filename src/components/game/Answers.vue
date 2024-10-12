@@ -103,7 +103,7 @@ const answer4 = computed(() => {
 });
 const answer4Class = computed(() => getAnswerClass(4));
 
-const getAnswerClass = numb => ({
+const getAnswerClass = (numb: number) => ({
     [$style.answerChosen]: store.chosenAnswer === numb,
     [$style.answerRight]: rightAnswer.value === numb,
     [$style.answerDisabled]: store.chosenAnswer > 0 ||
@@ -112,7 +112,7 @@ const getAnswerClass = numb => ({
         store.isGameEnded,
 });
 
-const chooseAnswer = questionNumb => {
+const chooseAnswer = (questionNumb: number) => {
     if (
         store.chosenAnswer === 0 &&
         !store.helpFiftyFiftyNumbers.includes(questionNumb) &&
@@ -170,7 +170,7 @@ const chooseAnswer = questionNumb => {
     }
 };
 
-let audioInterval = null;
+let audioInterval: ReturnType<typeof setTimeout>;
 const continueBackgroundMusic = () => {
     if (!store.isMuted) {
         clearInterval(audioInterval);

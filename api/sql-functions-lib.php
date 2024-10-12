@@ -56,11 +56,42 @@ function getThematicQuestions($thematicId){
 	return $questionsArr;
 }
 
-function dataBaseToArray($result){
-    $array = array();
-    while($row = mysqli_fetch_assoc($result)){
-        $array[] = $row;
+function dataBaseToArray($result) {
+    $fields = mysqli_fetch_fields($result);
+    $data = array();
+    $types = array();
+
+    foreach($fields as $field) {
+        switch($field->type) {
+            case MYSQLI_TYPE_NULL:
+                $types[$field->name] = 'null';
+                break;
+            case MYSQLI_TYPE_BIT:
+                $types[$field->name] = 'boolean';
+                break;
+            case MYSQLI_TYPE_TINY:
+            case MYSQLI_TYPE_SHORT:
+            case MYSQLI_TYPE_LONG:
+            case MYSQLI_TYPE_INT24:
+            case MYSQLI_TYPE_LONGLONG:
+                $types[$field->name] = 'int';
+                break;
+            case MYSQLI_TYPE_FLOAT:
+            case MYSQLI_TYPE_DOUBLE:
+                $types[$field->name] = 'float';
+                break;
+            default:
+                $types[$field->name] = 'string';
+                break;
+        }
     }
-    return $array;
-}
+    while($row = mysqli_fetch_assoc($result)) array_push($data,$row);
+    for($i = 0; $i < count($data); $i++) {
+        foreach($types as $name => $type) {
+            settype($data[$i][$name], $type);
+        }
+    }
+
+    return $data;
+}   
 ?>

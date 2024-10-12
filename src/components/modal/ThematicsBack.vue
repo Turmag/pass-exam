@@ -40,7 +40,7 @@ const thematicsReturn = () => {
     setTimeout(() => {
         storeMain.$patch({
             isGameStarted: false,
-            chosenThematicId: '0',
+            chosenThematicId: 0,
         });
     }, 800);
     closeModal();

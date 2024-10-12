@@ -1,33 +1,33 @@
 import { defineStore } from 'pinia';
-import { getRandom } from '@/assets/js/helpers';
-import { Thematic, Question } from '@/services/types';
-import Api from '@/services/api';
+import { getRandom } from '@/shared/helpers';
+import type { IThematic, IQuestion } from '@/shared/types';
+import Api from '@/shared/api';
 
 export const mainStore = defineStore('main', {
     state: () => {
         return {
             audio: {} as HTMLAudioElement,
-            thematics: [] as Thematic[],
-            chosenThematicId: '0',
+            thematics: [] as IThematic[],
+            chosenThematicId: 0,
             isMuted: true,
             currentQuestionNum: 1,
-            currentQuestion: {} as Question,
+            currentQuestion: {} as IQuestion,
             isGameStarted: false,
             isGameEnded: false,
             isDisplayGameField: false,
             isAnswerAcepted: false,
             chosenAnswer: 0,
-            lowQuestions: [] as Question[],
-            middleQuestions: [] as Question[],
-            highQuestions: [] as Question[],
+            lowQuestions: [] as IQuestion[],
+            middleQuestions: [] as IQuestion[],
+            highQuestions: [] as IQuestion[],
             isFiftyUsed: false,
-            helpFiftyFiftyNumbers: [],
+            helpFiftyFiftyNumbers: [] as number[],
             isTryUsed: false,
             isHelpTryActive: false,
             helpTryNumber: 0,
         };
     },
-    getters: { chosenThematic: state => state.thematics.find(el => el.id === state.chosenThematicId) },
+    getters: { chosenThematic: state => state.thematics.find(el => el.id === state.chosenThematicId)as IThematic },
     actions: {
         async getThematics() {
             try {
@@ -38,9 +38,10 @@ export const mainStore = defineStore('main', {
             }
         },
 
-        async getThematicQuestions(id: string) {
+        async getThematicQuestions(id: number) {
             try {
                 const { data: questions } = await Api.getThematicQuestions(id);
+
                 this.addQuestionToThematic({
                     id,
                     questions, 
@@ -57,7 +58,7 @@ export const mainStore = defineStore('main', {
             }
         },
 
-        addQuestionToThematic({ id, questions }: { id: string; questions: string }) {
+        addQuestionToThematic({ id, questions }: { id: number; questions: IQuestion[] }) {
             this.thematics.forEach((el, i) => {
                 if (el.id === id) this.thematics[i].questions = questions;
             });
@@ -82,7 +83,7 @@ export const mainStore = defineStore('main', {
             this.chosenAnswer = 0;
         },
 
-        setQuestions(questions: Question[]) {
+        setQuestions(questions: IQuestion[]) {
             this.lowQuestions = [];
             this.middleQuestions = [];
             this.highQuestions = [];

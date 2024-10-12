@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import VolumeUp from '~icons/carbon/VolumeUp';
-import VolumeMute from '~icons/carbon/VolumeMuteFilled';
+import VolumeUp from '~icons/carbon/VolumeUp.vue';
+import VolumeMute from '~icons/carbon/VolumeMuteFilled.vue';
 import {
     ref,
     markRaw,
@@ -38,10 +38,7 @@ volume.value = markRaw(VolumeMute);
 
 let audioInterval: ReturnType<typeof setTimeout>;
 
-const footerClass = computed(() => ({
-    [$style.footer]: true,
-    [$style.footerFixed]: isFixedFooter.value, 
-}));
+const footerClass = computed(() => ({ [$style.footer]: true }));
 
 watch(
     () => store.isMuted,
@@ -79,15 +76,6 @@ watch(
         }
     },
 );
-
-const isFixedFooter = ref(true);
-
-watch(
-    () => store.isDisplayGameField,
-    value => {
-        setTimeout(() => isFixedFooter.value = !value, 200);
-    },
-);
 </script>
 
 <style lang="scss" module>
@@ -103,6 +91,7 @@ watch(
         border-top: 1px solid #e3e7ec;
         background-color: $black;
         transition: 0.3s ease;
+        user-select: none;
     }
 
     .footerFixed {

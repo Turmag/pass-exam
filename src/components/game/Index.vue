@@ -20,22 +20,21 @@
 </template>
 
 <script setup lang="ts">
+import { watch, computed } from 'vue';
 import Help from '@/components/game/Help.vue';
 import Aside from '@/components/game/Aside.vue';
 import Answers from '@/components/game/Answers.vue';
-import { watch, computed } from 'vue';
 import { mainStore } from '@/store/main';
 
-const mainImg = new URL('/src/assets/img/mainPicture.svg', import.meta.url).href;
-
 const store = mainStore();
+const mainImg = new URL('/src/assets/img/mainPicture.svg', import.meta.url).href;
 
 watch(
     () => store.isGameStarted,
-    val => {
+    value => {
         setTimeout(
             () =>
-                store.$patch({ isDisplayGameField: val }),
+                store.isDisplayGameField = value,
             700,
         );
     },

@@ -129,22 +129,22 @@ const tryAgain = () => {
             margin-top: 10px;
         }
 
-        &.error {
+        & .error {
             font-weight: 700;
             color: rgb(228 80 80);
         }
 
-        &.satisfactory {
+        & .satisfactory {
             font-weight: 700;
             color: rgb(240 153 96);
         }
 
-        &.good {
+        & .good {
             font-weight: 700;
             color: rgb(248 220 94);
         }
 
-        &.excellent {
+        & .excellent {
             font-weight: 700;
             color: rgb(44 241 37);
         }

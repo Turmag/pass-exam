@@ -10,12 +10,12 @@
 <script setup lang="ts">
 import { mainStore } from '@/store/main';
 
-interface Props {
-    id: string;
+interface IProps {
+    id: number;
     name: string;
 }
 
-const props = defineProps<Props>();
+const props = defineProps<IProps>();
 const store = mainStore();
 
 const chooseThematics = () => store.chosenThematicId = props.id;

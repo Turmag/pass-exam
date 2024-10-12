@@ -5,7 +5,7 @@
             <div :class="$style.items">
                 <Item v-for="(thematic, i) in store.thematics" :key="i" v-bind="thematic" />
             </div>
-            <div v-if="store.chosenThematicId !== '0'" :class="$style.btnWrapper">
+            <div v-if="store.chosenThematicId !== 0" :class="$style.btnWrapper">
                 <div :class="$style.btn" @click="startGame">
                     Начать игру
                 </div>
@@ -32,12 +32,8 @@ const startGame = async () => {
         store.$patch({ isGameStarted: true });
         store.audio.src = 'audio/startGame.mp3';
         store.audio.play();
-
-        setTimeout(() => {
-            document.querySelector('.game').scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
     } else {
-        console.log('Нельзя начать игру в этой тематике');
+        console.warn('Нельзя начать игру в этой тематике');
     }
 };
 </script>

@@ -13,13 +13,13 @@
 import { computed, useCssModule } from 'vue';
 import { mainStore } from '@/store/main';
 
-interface Props {
+interface IProps {
     num: number;
     name: string;
-    isFireproof: boolean;
+    isFireproof?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<IProps>(), { isFireproof: false });
 const store = mainStore();
 const $style = useCssModule();
 

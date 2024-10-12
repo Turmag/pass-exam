@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { getRandom } from '@/assets/js/helpers';
+import { getRandom } from '@/shared/helpers';
 import { computed, useCssModule } from 'vue';
 import { mainStore } from '@/store/main';
 
