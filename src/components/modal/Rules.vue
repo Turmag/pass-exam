@@ -42,7 +42,7 @@ const closeModal = () => store.isShowModalRules = false;
         width: 550px;
         min-height: 100px;
         max-height: 680px;
-        padding: 60px 16px 16px;
+        padding: 20px 16px 16px;
         border-radius: 20px;
         background-color: $gray-modal;
         color: $white;
