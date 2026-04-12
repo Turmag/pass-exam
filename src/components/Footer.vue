@@ -19,15 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import VolumeUp from '~icons/carbon/VolumeUp.vue';
-import VolumeMute from '~icons/carbon/VolumeMuteFilled.vue';
 import {
-    ref,
+    computed,
     markRaw,
-    watch,
-    computed, 
+    ref,
     useCssModule,
+    watch,
 } from 'vue';
+import VolumeMute from '~icons/carbon/VolumeMuteFilled.vue';
+import VolumeUp from '~icons/carbon/VolumeUp.vue';
 import { mainStore } from '@/store/main';
 
 const store = mainStore();
@@ -42,8 +42,8 @@ const footerClass = computed(() => ({ [$style.footer]: true }));
 
 watch(
     () => store.isMuted,
-    val => {
-        volume.value = markRaw(val ? VolumeMute : VolumeUp);
+    value => {
+        volume.value = markRaw(value ? VolumeMute : VolumeUp);
         const possibleIncludesPaths = [
             'startGame',
             'rightAnswer',
@@ -53,8 +53,8 @@ watch(
             'oneMoreAttempt',
         ];
         let isIncludesPath = false;
-        possibleIncludesPaths.forEach(el => {
-            if (store.audio.src.includes(el)) {
+        possibleIncludesPaths.forEach(element => {
+            if (store.audio.src.includes(element)) {
                 isIncludesPath = true;
             }
         });
@@ -71,7 +71,7 @@ watch(
                 }
             }, 1000);
         }
-        if (val) {
+        if (value) {
             clearInterval(audioInterval);
         }
     },
@@ -83,13 +83,13 @@ watch(
         position: relative;
         bottom: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         width: 100%;
         height: 50px;
         margin-top: 50px;
         border-top: 1px solid #e3e7ec;
-        background-color: $black;
+        background-color: var(--black);
         transition: 0.3s ease;
         user-select: none;
     }
@@ -107,8 +107,8 @@ watch(
         top: 8px;
         right: 5px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         width: 30px;
         height: 30px;
         border-radius: 20px;

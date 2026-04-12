@@ -1,24 +1,29 @@
 :root {
+    background-color: #181818;
+    color: rgb(255 255 255 / 87%);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
-    line-height: 24px;
     font-weight: 400;
-
+    line-height: 24px;
     color-scheme: dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #181818;
-
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    --black: #181818;
+    --white: #fff;
+    --gray-modal: #2c2c2e;
+    --gray-modal-inner: #414143;
+    --gray-modal-inner-lighten: #5a5a5e;
+    --gray-modal-inner-darken: #28282a;
 }
 
 body {
-    margin: 0;
     min-width: 1320px;
     min-height: 100vh;
+    margin: 0;
 }
 
 #app {
@@ -26,10 +31,7 @@ body {
 }
 
 img {
-    user-drag: none;
     user-select: none;
-    -moz-user-select: none;
     -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+    user-drag: none;
 }

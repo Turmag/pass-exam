@@ -1,6 +1,7 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import '@/style.scss';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
+
 const pinia = createPinia();
 import { vfmPlugin } from 'vue-final-modal';
 import App from '@/App.vue';

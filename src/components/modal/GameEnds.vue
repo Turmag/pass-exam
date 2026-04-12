@@ -59,8 +59,8 @@ const tryAgain = () => {
 <style lang="scss" module>
     .modal {
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
     }
 
     .content {
@@ -71,8 +71,8 @@ const tryAgain = () => {
         max-height: 680px;
         padding: 60px 16px 16px;
         border-radius: 20px;
-        background-color: $gray-modal;
-        color: $white;
+        background-color: var(--gray-modal);
+        color: var(--white);
         box-shadow: 0 4px 32px rgb(0 0 0 / 10%);
     }
 
@@ -81,21 +81,21 @@ const tryAgain = () => {
         top: 16px;
         right: 16px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: $gray-modal-inner;
+        background-color: var(--gray-modal)-inner;
         cursor: pointer;
         user-select: none;
 
         &:hover {
-            background-color: $gray-modal-inner-lighten;
+            background-color: var(--gray-modal)-inner-lighten;
         }
 
         &:active {
-            background-color: $gray-modal-inner-darken;
+            background-color: var(--gray-modal)-inner-darken;
         }
     }
 
@@ -117,7 +117,7 @@ const tryAgain = () => {
 
         &::-webkit-scrollbar-track {
             border-radius: 8px;
-            background: $gray-modal-inner;
+            background: var(--gray-modal)-inner;
         }
     }
 
@@ -130,23 +130,23 @@ const tryAgain = () => {
         }
 
         & .error {
-            font-weight: 700;
             color: rgb(228 80 80);
+            font-weight: 700;
         }
 
         & .satisfactory {
-            font-weight: 700;
             color: rgb(240 153 96);
+            font-weight: 700;
         }
 
         & .good {
-            font-weight: 700;
             color: rgb(248 220 94);
+            font-weight: 700;
         }
 
         & .excellent {
-            font-weight: 700;
             color: rgb(44 241 37);
+            font-weight: 700;
         }
     }
 

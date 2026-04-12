@@ -40,11 +40,11 @@ const openModalThematics = () => store.isShowModalThematics = true;
         position: relative;
         z-index: 1;
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         height: 80px;
         border-bottom: 1px solid #e3e7ec;
-        background-color: $black;
+        background-color: var(--black);
         font-size: 20px;
     }
 

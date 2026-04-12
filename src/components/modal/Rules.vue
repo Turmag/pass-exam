@@ -32,8 +32,8 @@ const closeModal = () => store.isShowModalRules = false;
 <style lang="scss" module>
     .modal {
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
     }
 
     .content {
@@ -44,8 +44,8 @@ const closeModal = () => store.isShowModalRules = false;
         max-height: 680px;
         padding: 20px 16px 16px;
         border-radius: 20px;
-        background-color: $gray-modal;
-        color: $white;
+        background-color: var(--gray-modal);
+        color: var(--white);
         box-shadow: 0 4px 32px rgb(0 0 0 / 10%);
     }
 
@@ -54,29 +54,29 @@ const closeModal = () => store.isShowModalRules = false;
         top: 16px;
         right: 16px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: $gray-modal-inner;
+        background-color: var(--gray-modal)-inner;
         cursor: pointer;
         user-select: none;
 
         &:hover {
-            background-color: $gray-modal-inner-lighten;
+            background-color: var(--gray-modal)-inner-lighten;
         }
 
         &:active {
-            background-color: $gray-modal-inner-darken;
+            background-color: var(--gray-modal)-inner-darken;
         }
     }
 
     .title {
         margin-bottom: 20px;
+        color: #ffda2f;
         text-align: center;
         font-size: 20px;
-        color: #ffda2f;
     }
 
     .inner {
@@ -97,7 +97,7 @@ const closeModal = () => store.isShowModalRules = false;
 
         &::-webkit-scrollbar-track {
             border-radius: 8px;
-            background: $gray-modal-inner;
+            background: var(--gray-modal)-inner;
         }
     }
 
