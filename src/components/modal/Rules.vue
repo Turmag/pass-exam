@@ -59,16 +59,16 @@ const closeModal = () => store.isShowModalRules = false;
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: var(--gray-modal)-inner;
+        background-color: var(--gray-modal-inner);
         cursor: pointer;
         user-select: none;
 
         &:hover {
-            background-color: var(--gray-modal)-inner-lighten;
+            background-color: var(--gray-modal-inner-lighten);
         }
 
         &:active {
-            background-color: var(--gray-modal)-inner-darken;
+            background-color: var(--gray-modal-inner-darken);
         }
     }
 

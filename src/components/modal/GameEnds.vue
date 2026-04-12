@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { modalStore } from '@/store/modal';
 import { mainStore } from '@/store/main';
+import { modalStore } from '@/store/modal';
 
 const store = modalStore();
 const storeMain = mainStore();
@@ -86,16 +86,16 @@ const tryAgain = () => {
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background-color: var(--gray-modal)-inner;
+        background-color: var(--gray-modal-inner);
         cursor: pointer;
         user-select: none;
 
         &:hover {
-            background-color: var(--gray-modal)-inner-lighten;
+            background-color: var(--gray-modal-inner-lighten);
         }
 
         &:active {
-            background-color: var(--gray-modal)-inner-darken;
+            background-color: var(--gray-modal-inner-darken);
         }
     }
 
@@ -117,7 +117,7 @@ const tryAgain = () => {
 
         &::-webkit-scrollbar-track {
             border-radius: 8px;
-            background: var(--gray-modal)-inner;
+            background: var(--gray-modal-inner);
         }
     }
 
